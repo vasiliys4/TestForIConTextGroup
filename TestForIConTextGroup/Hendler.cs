@@ -12,9 +12,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace TestForIConTextGroup
 {
-    internal class Hendler
+    public class Hendler
     {
-        List<Employees> ListOfEmployees = new List<Employees>();
+        public List<Employees> ListOfEmployees = new List<Employees>();
         public void DeserializeJSON(string path)
         {
             ListOfEmployees = System.Text.Json.JsonSerializer.Deserialize<List<Employees>>(File.ReadAllText(path));
@@ -37,14 +37,14 @@ namespace TestForIConTextGroup
             employee.Id = ListOfEmployees.Max(x => x.Id) + 1;
             ListOfEmployees.Add(employee);
         }
-        public void GetAll()
+        public void GetAll(List<Employees> ListOfEmployees)
         {
             for (int i = 0; i < ListOfEmployees.Count; i++)
             {
                 Console.WriteLine($"Id = {ListOfEmployees[i].Id}, FirstName = {ListOfEmployees[i].FirstName}, LastName = {ListOfEmployees[i].LastName}, SalaryPerHour = {ListOfEmployees[i].SalaryPerHour}");
             }
         }
-        public Employees Get(int id)
+        public Employees? Get(int id)
         {
             ListOfEmployees.FirstOrDefault(x => x.Id == id);
             foreach (var employee in ListOfEmployees)
@@ -58,7 +58,7 @@ namespace TestForIConTextGroup
             Console.WriteLine("нет такого сотрудника");
             return null;
         }
-        public void Update(int id, Employees Employee)
+        public Employees Update(int id, Employees Employee)
         {
             var employee = ListOfEmployees.FirstOrDefault(x => x.Id == id);
             if (employee != null)
@@ -78,11 +78,13 @@ namespace TestForIConTextGroup
                 if (Employee.SalaryPerHour != 0)
                 {
                     employee.SalaryPerHour = Employee.SalaryPerHour;
-                }               
+                }          
+                return employee;
             }
             else
             {
                 Console.WriteLine("Такого id нет");
+                return null;
             }
         }
         public void Delete(int id)

@@ -34,7 +34,7 @@ internal class Program
                     hendler.SerializeJSON(Path);
                     break;
                 case "-getall":
-                    hendler.GetAll();
+                    hendler.GetAll(hendler.ListOfEmployees);
                     break;
             }
         }
