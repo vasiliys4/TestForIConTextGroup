@@ -33,7 +33,9 @@ namespace TestForIConTextGroup.Tests
             hendler.ListOfEmployees.Add(employee1);
             var employee3 = hendler.Update(1, employee2);
 
-            Assert.AreEqual(employee2, employee3);
+            Assert.AreEqual(employee2.FirstName, employee3.FirstName);
+            Assert.AreEqual(employee2.LastName, employee3.LastName);
+            Assert.AreEqual(employee2.SalaryPerHour, employee3.SalaryPerHour);
         }
     }
 }
